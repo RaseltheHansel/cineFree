@@ -1,4 +1,3 @@
-// server/src/services/tmdb.service.ts
 import axios from 'axios';
 import { withCache } from '../config/redis';
  
