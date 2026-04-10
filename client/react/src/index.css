@@ -1,2 +1,45 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #0b1016;
+  --surface: #121a26;
+  --accent: #ff6e56;
+  --accent-strong: #ffb347;
+  --accent-soft: #56cbff;
+  --text-primary: #f4f6fb;
+  --text-secondary: #c6ceda;
+  --text-muted: #8a93a3;
+  --mono: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Space Grotesk", sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+section {
+  scroll-margin-top: 120px;
+}
