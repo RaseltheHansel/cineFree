@@ -13,6 +13,16 @@ export const getLatestMovies = async (region: string) =>
       params: { region, language: 'en-US', page: 1 }
     }).then(r => r.data.results)
 );
+
+// Latest TV series by country — 1 hour TTL
+export const getLatestSeries = async (region: string) =>
+  withCache(`latest:series:${region}`, 3600,
+    () => tmdb.get('/discover/tv', {
+      params: { watch_region: region,
+                sort_by: 'first_air_date.desc',
+                'vote_count.gte': 5, page: 1 }
+    }).then(r => r.data.results)
+);
  
 // Oldest movies — 24 hour TTL (classics don't change)
 export const getOldestMovies = async (region: string) =>
