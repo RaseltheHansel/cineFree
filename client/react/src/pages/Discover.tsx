@@ -31,6 +31,13 @@ export const Discover = () => {
     return match?.english_name ?? 'United States'
   }, [countries, region])
 
+  const mediaType =
+    group === 'series' ||
+    group === 'anime' ||
+    (group === 'cartoons' && cartoonFilter === 'series')
+      ? 'tv'
+      : 'movie'
+
   return (
     <div className="page">
       <section className="page-header">
@@ -62,7 +69,12 @@ export const Discover = () => {
         )}
         <div className="movie-grid">
           {data.map((item) => (
-            <MovieCard key={item.id} item={item} />
+            <MovieCard
+              key={item.id}
+              item={item}
+              mediaType={mediaType}
+              region={region}
+            />
           ))}
         </div>
       </section>

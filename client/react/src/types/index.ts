@@ -1,4 +1,4 @@
-export type MediaType = 'movie' | 'tv'
+export type MediaType = 'movie' | 'tv' | 'person'
 export type DiscoverGroup = 'movies' | 'series' | 'cartoons' | 'anime'
 export type FilterType = 'latest' | 'oldest' | 'trending'
 export type CartoonFilter = 'latest' | 'oldest' | 'anime' | 'series'

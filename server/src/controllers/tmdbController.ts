@@ -2,7 +2,7 @@ import axios from 'axios';
 import { withCache } from '../config/redis';
  
 const tmdb = axios.create({
-  baseURL: process.env.TMDB_BASE_URL,
+  baseURL: process.env.TMDB_BASE_URL ?? 'https://api.themoviedb.org/3',
   params: { api_key: process.env.TMDB_API_KEY }
 });
  
@@ -52,6 +52,19 @@ export const searchAll = async (query: string) =>
 export const getCountries = async () =>
   withCache('config:countries', 604800,
     () => tmdb.get('/configuration/countries').then(r => r.data)
+);
+
+// Watch providers by region — 24 hour TTL
+export const getWatchProviders = async (
+  type: 'movie' | 'tv',
+  id: string,
+  region: string
+) =>
+  withCache(`watch:providers:${type}:${id}:${region}`, 86400,
+    () => tmdb.get(`/${type}/${id}/watch/providers`).then(r => {
+      const results = r.data?.results ?? {};
+      return results[region] ?? null;
+    })
 );
  
 

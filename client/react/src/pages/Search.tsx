@@ -12,7 +12,11 @@ export const Search = () => {
     enabled: query.trim().length > 2,
   })
 
-  const total = useMemo(() => data.length, [data])
+  const filtered = useMemo(
+    () => data.filter((item) => item.media_type === 'movie' || item.media_type === 'tv'),
+    [data]
+  )
+  const total = useMemo(() => filtered.length, [filtered])
 
   return (
     <div className="page">
@@ -34,15 +38,20 @@ export const Search = () => {
       <section className="grid-section">
         {!query && <p className="status">Start typing to search.</p>}
         {query && isLoading && <p className="status">Searching...</p>}
-        {query && !isLoading && !data.length && (
+        {query && !isLoading && !filtered.length && (
           <p className="status">No results found.</p>
         )}
-        {query && !!data.length && (
+        {query && !!filtered.length && (
           <p className="status">{total} results</p>
         )}
         <div className="movie-grid">
-          {data.map((item) => (
-            <MovieCard key={item.id} item={item} />
+          {filtered.map((item) => (
+            <MovieCard
+              key={item.id}
+              item={item}
+              mediaType={item.media_type}
+              region="PH"
+            />
           ))}
         </div>
       </section>

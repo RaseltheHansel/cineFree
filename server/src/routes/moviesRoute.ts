@@ -29,7 +29,17 @@ router.get('/search', async (req, res) => {
   const { q } = req.query;
   res.json(await tmdb.searchAll(q as string));
 });
- 
+
+// GET /api/movies/providers/:type/:id?region=PH
+router.get('/providers/:type/:id', async (req, res) => {
+  const { type, id } = req.params;
+  const { region = 'PH' } = req.query;
+  if (type !== 'movie' && type !== 'tv') {
+    return res.status(400).json({ error: 'Invalid type' });
+  }
+  res.json(await tmdb.getWatchProviders(type, id, region as string));
+});
+
 // GET /api/movies/countries
 router.get('/countries', async (req, res) => {
   res.json(await tmdb.getCountries());
